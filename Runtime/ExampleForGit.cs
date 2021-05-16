@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Quarantine.Samples
+namespace Quarantine.Framework
 {
     public class ExampleForGit : MonoBehaviour
     {
