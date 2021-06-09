@@ -1,6 +1,6 @@
 {
   "name": "com.craigbentick.quarantine",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "displayName": "Quarantine Framework",
   "description": "A suite of prototyping tools and features by Craig Bentick",
   "unity": "2020.3",
