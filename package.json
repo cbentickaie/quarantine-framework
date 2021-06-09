@@ -14,25 +14,6 @@
     "email": "unity@example.com",
     "url": "https://www.unity3d.com"
   },
-  "type": "template"
-
-  {
-
-    "samples": 
-    [
-
-      {
-
-        "displayName": "Active Tiles",
-
-        "description": "Collapsing Tiles, Triggered by Player Contact",
-
-        "path": "Samples~/ActiveTiles"
-
-      }
-
-    ]
-
-  }
+  "type": "template",
 
 }
