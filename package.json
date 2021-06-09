@@ -1,6 +1,6 @@
 {
   "name": "com.craigbentick.quarantine",
-  "version": "0.18.1",
+  "version": "0.18.2",
   "displayName": "Quarantine Framework",
   "description": "A suite of prototyping tools and features by Craig Bentick",
   "unity": "2020.3",
@@ -14,6 +14,5 @@
     "email": "unity@example.com",
     "url": "https://www.unity3d.com"
   },
-  "type": "template",
-
+  "type": "template"
 }
