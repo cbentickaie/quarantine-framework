@@ -304,7 +304,7 @@ MonoBehaviour:
     groundCheckDistance: 0.1
     stickToGroundHelperDistance: 0.6
     slowDownRate: 20
-    airControl: 0
+    airControl: 1
     shellOffset: 0.1
   m_AudioSource: {fileID: 7465511327806858072}
   m_JumpSound: {fileID: 8300000, guid: d442778e17c4ad84c8925f42c29abe1b, type: 3}

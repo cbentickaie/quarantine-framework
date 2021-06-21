@@ -19,7 +19,7 @@ public class CannonBallLauncher : MonoBehaviour
         {
             SpawnProjectile();
             yield return new WaitForSeconds(FiringRate);
-            print("Projectile Launched");
+            //print("Projectile Launched");
         }
     }
 

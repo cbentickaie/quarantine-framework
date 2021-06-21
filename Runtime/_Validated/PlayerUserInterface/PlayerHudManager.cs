@@ -15,6 +15,7 @@ public class PlayerHudManager : MonoBehaviour {
     public float messageTime = 2.0f;
     public bool showCrosshair = true;
     public GameObject statspanel;
+    public GameObject pauseMenu;
     public List<Slider> StatSliders;
     public Color crossHairColor;
     [SerializeField]
@@ -186,5 +187,10 @@ public class PlayerHudManager : MonoBehaviour {
             crosshair.color = idleColor;
             //print("STOPHOVER");
         }
+    }
+
+    public void TogglePauseMenu(bool showMenu) 
+    {
+        pauseMenu.SetActive(showMenu);
     }
 }

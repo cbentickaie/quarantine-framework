@@ -15,6 +15,12 @@ public class C_QuitGameTrigger : MonoBehaviour
 
     public void ExitGameDirect() 
     {
-        Application.Quit();
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #elif UNITY_WEBPLAYER
+                 Application.OpenURL(webplayerQuitURL);
+        #else
+                 Application.Quit();
+        #endif
     }
 }

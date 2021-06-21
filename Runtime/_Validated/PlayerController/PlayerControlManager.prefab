@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 136969984708651882}
   - component: {fileID: 20697077861388694}
   - component: {fileID: 114506389369409906}
+  - component: {fileID: 8581008678176484091}
   m_Layer: 0
   m_Name: PlayerControlManager
   m_TagString: Untagged
@@ -146,6 +147,18 @@ MonoBehaviour:
   interactableComponents: []
   Hovertags: []
   isPlayerInteractor: 0
+--- !u!114 &8581008678176484091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500431426230548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ee1773841d1714e9656794924394a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2262585852109821453
 PrefabInstance:
   m_ObjectHideFlags: 0

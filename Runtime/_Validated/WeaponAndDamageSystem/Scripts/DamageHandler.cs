@@ -21,7 +21,7 @@ public class DamageHandler : MonoBehaviour {
     [SerializeField] AudioSource damageAudioSrc;
     [SerializeField] AudioClip DeathSound;
     [SerializeField] AudioClip[] DamageSounds;
-    [SerializeField]bool useAudioforDesctruction = true;
+    [SerializeField]bool useAudioforDesctruction = false;
     [SerializeField]
     PlayerController myPcon;
 
@@ -86,10 +86,10 @@ public class DamageHandler : MonoBehaviour {
 
     public IEnumerator DelayNextDamage() 
     {
-        print("Llocking damage");
+        //print("Llocking damage");
         yield return new WaitForSeconds(frequency);
         isApplyingDamage = false;
-        print("Unllocking damage");
+        //print("Unllocking damage");
     }
 
     void OnCollisionEnter(Collision other)
@@ -101,10 +101,10 @@ public class DamageHandler : MonoBehaviour {
             //StartCoroutine("DelayNextDamage");
             if (!isBouncer)
             {
-                Debug.Log("Hit Something");
+               // Debug.Log("Hit Something");
                 if (other.gameObject.GetComponent<DamageHandler>() != null)
                 {
-                    print(other.collider.name + "damaged for " + DamageAmount);
+                    //print(other.collider.name + "damaged for " + DamageAmount);
                     other.gameObject.GetComponent<DamageHandler>().ApplyDamage(DamageAmount);
                     if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
                     if (DestroySelf) 
@@ -120,9 +120,17 @@ public class DamageHandler : MonoBehaviour {
                 {
                     if (DestroySelf)
                     {
-                        damageAudioSrc.Play();
-                        //destroy this actor once the duration of the audio has elapsed
-                        Destroy(gameObject, damageAudioSrc.clip.length);
+                        if (damageAudioSrc && damageAudioSrc.clip)
+                        {
+                            damageAudioSrc.Play();
+                            //destroy this actor once the duration of the audio has elapsed
+                            Destroy(gameObject, damageAudioSrc.clip.length);
+                        }
+                        else 
+                        {
+                            Destroy(gameObject);
+                        }
+
                     }
                 }
                 else if (!useAudioforDesctruction)

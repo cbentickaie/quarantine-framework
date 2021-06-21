@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
+
 [RequireComponent(typeof(Camera))]
 
 public class PlayerController : MonoBehaviour {
@@ -24,6 +27,9 @@ public class PlayerController : MonoBehaviour {
     public static PlayerController instance = null; //Static instance of PlayerHudManager which allows it to be accessed by any other script.
     Vector3 ControllerStartLocation;
     Quaternion ControllerStartRotation;
+
+    bool PlayerPaused = false;
+
     [ExecuteInEditMode]
     //Awake is always called before any Start functions
     void Awake()
@@ -301,6 +307,34 @@ public class PlayerController : MonoBehaviour {
                 currentPopularity -= (Time.deltaTime * statDepletionRate) ;
                 //print("Popular as: " + currentPopularity);
                 break;
+        }
+    }
+
+    public void PausePlayer(bool pause) 
+    {
+        if (pause)
+        {
+            PlayerPaused = true;
+            // disablePlayerPawn(true);
+            //AvatarInstances[AvatarIndex].GetComponent<UnityStandardAssets.Characters.FirstPerson >
+            //UnityStandardAssets.ImageEffects.MotionBlur > ()
+            // This unlocks the cursor
+            Cursor.lockState = CursorLockMode.None;
+
+
+            // If you unlock the cursor, but its still invisible, try this:
+            Cursor.visible = true;
+            PlayerHudManager.instance.TogglePauseMenu(true);
+        }
+        else 
+        {
+            PlayerPaused = false;
+
+            // This locks the cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            // disablePlayerPawn(false);
+            PlayerHudManager.instance.TogglePauseMenu(false);
         }
     }
 }
