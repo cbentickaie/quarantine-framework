@@ -19,15 +19,17 @@ public class CannonBallLauncher : MonoBehaviour
         {
             SpawnProjectile();
             yield return new WaitForSeconds(FiringRate);
-            print("Auto Bullet Fired");
+            print("Projectile Launched");
         }
     }
 
     void SpawnProjectile()
     {
-        //this is an incredibly basic Rigidbody projectile method, it is dependant on the bullet prefab handling it's own launch velocity, 
-        //see the ProjectileLaunch Script for an example of this implementation, you could also apply a rigidbody impulse here if you wanted to.
+        //this is an incredibly basic Rigidbody projectile method, we Instantiate or 'Spawn' a new Gameobject from our specified Prefab. This prefab must use a Rigidbody component in order to apply Physics.
+        
         Rigidbody NewProjectile = (Rigidbody)Instantiate(ProjectilePrefab, this.transform.position, this.transform.rotation) as Rigidbody;
+
+        //We then apply a rigidbody impulse, forcing the Rigidbody to move as if launched at the velocity we specify for launchSpeed.
         NewProjectile.AddForce(NewProjectile.transform.forward * launchSpeed, ForceMode.Impulse);
     }
 }

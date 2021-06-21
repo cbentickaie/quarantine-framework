@@ -11,7 +11,7 @@ public class TriggerAnimation : MonoBehaviour
         if (other.gameObject.tag == "Player" && TriggerName != null) 
         {
             AnimTarget.SetTrigger(TriggerName);
-            Debug.Log("WE DETECTED THE PLAYER");
+            Debug.Log("Animation State Triggered for: " + AnimTarget.name + ": " + TriggerName);
         }
     }
 }
