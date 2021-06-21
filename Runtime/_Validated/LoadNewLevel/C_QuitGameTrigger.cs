@@ -12,4 +12,9 @@ public class C_QuitGameTrigger : MonoBehaviour
             Application.Quit();
             }
     }
+
+    public void ExitGameDirect() 
+    {
+        Application.Quit();
+    }
 }

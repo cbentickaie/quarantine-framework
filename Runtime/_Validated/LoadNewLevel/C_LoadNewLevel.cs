@@ -19,7 +19,10 @@ public class C_LoadNewLevel : MonoBehaviour
             SceneManager.LoadScene(Levelname);
         }
     }
-
+    public void LoadNewLevelDirect(string LevelName)
+    {
+        SceneManager.LoadScene(LevelName);
+    }
     void OnDrawGizmos()
     {
         // Draws the desired icon at position of the object.
@@ -31,7 +34,7 @@ public class C_LoadNewLevel : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         //This will draw a line to our Teleport Destination when the Gameobject this Component is attached to is selected in the Editor.
-        if (Levelname != null) ;
+        if (Levelname != null)
         {
             Gizmos.color = Color.green;
             //Gizmos.DrawLine(transform.position, TeleportDestination.transform.position);
