@@ -235,8 +235,16 @@ public class DamageHandler : MonoBehaviour {
     }
     public void playDamageSound() 
     {
-        damageAudioSrc.clip = DamageSounds[Random.Range(0, DamageSounds.Length)];
-        damageAudioSrc.Play();
+        if (DamageSounds[0])
+        {
+            damageAudioSrc.clip = DamageSounds[Random.Range(0, DamageSounds.Length)];
+            damageAudioSrc.Play();
+        }
+        else 
+        {
+            Debug.Log("Missing Audio Clips for Damage Sounds - please add them in the Inspector");
+        }
+
     }
 
     public void playDeathSound()
