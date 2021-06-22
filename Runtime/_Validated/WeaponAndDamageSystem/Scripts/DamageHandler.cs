@@ -243,7 +243,8 @@ public class DamageHandler : MonoBehaviour {
     }
     public void playDamageSound() 
     {
-        if (DamageSounds[0])
+        print(DamageSounds.Length);
+        if (DamageSounds.Length > 0)
         {
             damageAudioSrc.clip = DamageSounds[Random.Range(0, DamageSounds.Length)];
             damageAudioSrc.Play();

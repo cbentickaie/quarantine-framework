@@ -51,7 +51,7 @@ public class FlickeringMaterial : MonoBehaviour
     void Update()
     {
         sourceMaterial.SetColor("_EmissionColor", (initialColour * sourceLight.intensity));
-        print(sourceLight.intensity);
+        //print(sourceLight.intensity);
     }
 
     private void ValidateLightSource() 
