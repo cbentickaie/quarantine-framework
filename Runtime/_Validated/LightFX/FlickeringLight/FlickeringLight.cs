@@ -32,6 +32,7 @@ public class FlickeringLight : MonoBehaviour {
             //StopCoroutine(FlickerLight());
             StopAllCoroutines();
             gameObject.GetComponent<Light>().intensity = 0;
+            tgtIntensity = 0;
             isSwitchedOn = false;
 
         }

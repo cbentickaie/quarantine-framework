@@ -5,6 +5,9 @@ using UnityEngine;
 public class InteractionLightSwitch : Interactable
 {
     public Light targetLight;
+
+    private FlickeringLight flickerComp;
+
     private void Awake()
     {
         if (!targetLight)
@@ -19,9 +22,18 @@ public class InteractionLightSwitch : Interactable
             }
         }
     }
+
     public override void StartInteraction(bool isPlayer = false)
     {
         base.StartInteraction();
-        targetLight.enabled = (!targetLight.enabled);
+
+        if (flickerComp = targetLight.gameObject.GetComponent<FlickeringLight>())
+        {
+            flickerComp.toggleLight();
+        }
+        else 
+        {
+            targetLight.enabled = (!targetLight.enabled);
+        }
     }
 }
