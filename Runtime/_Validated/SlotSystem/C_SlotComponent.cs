@@ -21,9 +21,9 @@ public class C_SlotComponent : MonoBehaviour
 
 
     //THIS IS HACKY DONT EVER TELL ANYONE I DID THIS :S
-    public bool useJamesDoorMode = false;
-    public C_CheckCommodityToUnlockDoor CommodityChecker;
-    public MultiDoor JamesDoor;
+    public bool useCommodityDoorMode = false;
+    public C_CheckCommodityToUnlockDoor DoorCommodityChecker;
+    public MultiDoor MultiDoor;
     private void Awake()
     {
         if (useMeshPreview && (KeyMeshIndicator = SlotKeyObject.GetComponentInChildren<MeshFilter>().mesh)) 
@@ -44,8 +44,11 @@ public class C_SlotComponent : MonoBehaviour
         {
             Interactables.Add(i);
         }
-        //Grabs the Parent door - handling very specific case for James/
-        JamesDoor = CommodityChecker.gameObject.GetComponent<MultiDoor>();
+        if (!MultiDoor) 
+        {
+            //Grabs the Parent door - handling very specific case for James/
+            MultiDoor = DoorCommodityChecker.gameObject.GetComponent<MultiDoor>();
+        }        
     }
 
     // Update is called once per frame
@@ -124,14 +127,20 @@ public class C_SlotComponent : MonoBehaviour
             }
         }
 
-        if (useJamesDoorMode && CommodityChecker && JamesDoor.isLocked)
+        if (useCommodityDoorMode && DoorCommodityChecker && MultiDoor.isLocked)
         {
-            CommodityChecker.openDoorOnUnlock = true;
+            DoorCommodityChecker.openDoorOnUnlock = true;
         }
-        else if (useJamesDoorMode && CommodityChecker && !JamesDoor.isLocked) 
+        else if (useCommodityDoorMode && DoorCommodityChecker && !MultiDoor.isLocked) 
         {
-            JamesDoor.OpenDoor();
+            MultiDoor.OpenDoor();
         }
+
+        if (!useCommodityDoorMode && MultiDoor) 
+        {
+            MultiDoor.UnlockDoor();
+        }
+
         SlotTriggerVolume.enabled = false;
     }
 

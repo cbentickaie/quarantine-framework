@@ -14,6 +14,7 @@ public class PlayerHudManager : MonoBehaviour {
     public Image crosshair;
     public float messageTime = 2.0f;
     public bool showCrosshair = true;
+    [SerializeField] bool showCrosshairOnHover = true;
     public GameObject statspanel;
     public GameObject pauseMenu;
     public List<Slider> StatSliders;
@@ -178,17 +179,27 @@ public class PlayerHudManager : MonoBehaviour {
     {
         isHovering = newHovering;
         if (isHovering)
-        {
-            crosshair.color = HoverColor;            
+        {            
+            crosshair.color = HoverColor;
             //print("DIDHOVER");
+            if (!showCrosshair && showCrosshairOnHover) 
+            {
+                //show crosshair
+                crosshair.gameObject.SetActive(true);
+            }
         }
         else if(!isHovering) 
         {
             crosshair.color = idleColor;
             //print("STOPHOVER");
+            if (!showCrosshair && showCrosshairOnHover)
+            {
+                //hide crosshair
+                crosshair.gameObject.SetActive(false);
+            }
         }
     }
-
+    
     public void TogglePauseMenu(bool showMenu) 
     {
         pauseMenu.SetActive(showMenu);

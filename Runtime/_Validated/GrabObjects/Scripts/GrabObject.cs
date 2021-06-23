@@ -45,16 +45,17 @@ public class GrabObject : MonoBehaviour {
         //Work-In-Progress Grab Distance Adjustment
         if (GrabbedRB)
         {
-            currentGrabDistance = Mathf.Clamp(currentGrabDistance + (Input.GetAxis("Mouse ScrollWheel")), 1, 5);
-            //print(currentGrabDistance);
-            //PhysicsHandle.transform.localPosition = PhysicsHandle.transform.localPosition + new Vector3(0, Input.GetAxis("Mouse ScrollWheel"), 0);
+            //currentGrabDistance = Mathf.Clamp(currentGrabDistance + (Input.GetAxis("Mouse ScrollWheel")), 1, 5);
+           // print(currentGrabDistance);
+            ////PhysicsHandle.transform.localPosition = PhysicsHandle.transform.localPosition + new Vector3(0, Input.GetAxis("Mouse ScrollWheel"), 0);
 
             //print( PhysicsHandle.connectedAnchor);
             //print(Input.GetAxis("Mouse ScrollWheel"));
 
             //print(PhysicsHandle.connectedAnchor - transform.position * currentGrabDistance);            
-            //PhysicsHandle.connectedAnchor = (transform.position + (transform.forward * currentGrabDistance));
+            //PhysicsHandle.connectedAnchor = (transform.TransformPoint(initialGrabOffsetDirection * currentGrabDistance));
 
+            //print(PhysicsHandle.connectedAnchor);
             //Debug.Log(GrabbedRB.inertiaTensor.magnitude);
 
 
@@ -133,7 +134,7 @@ public class GrabObject : MonoBehaviour {
 
     float InitialRbDamping = 1.0f;
     float InitialRbAngularDamping = 0.0f;
-
+    Vector3 initialGrabOffsetDirection;
     void TryGrabObject(GameObject GrabCandidate)
     {
         GrabbedObject = GrabCandidate;
@@ -142,7 +143,7 @@ public class GrabObject : MonoBehaviour {
 
             //GrabbedObject.GetComponent<Rigidbody>().isKinematic = true;
             GrabbedRB = GrabbedObject.GetComponent<Rigidbody>();
-            
+            initialGrabOffsetDirection = (GrabbedRB.transform.position - transform.position).normalized;
             PhysicsHandle.connectedBody = GrabbedRB;
             //store Grabbed Rb initial Damping values
             InitialRbAngularDamping = GrabbedRB.angularDrag;
@@ -193,4 +194,16 @@ public class GrabObject : MonoBehaviour {
         }        
         GrabbedObject = null;
     }
+
+    void OnDrawGizmos() 
+    {
+        //Gizmos.DrawLine(transform.TransformPoint(initialGrabOffsetDirection * currentGrabDistance), transform.position);
+        if (GrabbedRB) 
+        {
+           // Gizmos.DrawCube(transform.position + (initialGrabOffsetDirection * currentGrabDistance), new Vector3(1.0f, 1.0f, 1.0f));
+            
+            
+        }        
+    }
+
 }

@@ -8,10 +8,20 @@ public class PlayerItemInventory : MonoBehaviour
 
     public int bulletAmmocount = 32;
     public int grenadeAmmoCount = 6;
+
+    public List<GameObject> heldItems;
+    [SerializeField] bool AutoGatherHeldItems = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        if (AutoGatherHeldItems) 
+        {
+            heldItems.Clear();
+            foreach (Transform child in GetComponentInChildren<Camera>().gameObject.transform) 
+            {
+                heldItems.Add(child.gameObject);
+            }
+        }
     }
 
 
@@ -77,6 +87,28 @@ public class PlayerItemInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        EvaluateItemSwap();
+    }
+
+    #region Item Switching
+    
+
+    void swapItem(int index)
+    {
+        if (index < heldItems.Count)
+        {
+            heldItems[activeItemIndex].SetActive(false);
+            heldItems[index].SetActive(true);
+            activeItemIndex = index;
+        }
+        else { print("No valid HeldItem at that Index"); }
+    }
+    #endregion
+
+    #region Input Mapping - Hacky
+    //This is pretty heinous but it works, just dont look at it too closely :S
+    void EvaluateItemSwap() 
+    {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             swapItem(0);
@@ -94,16 +126,30 @@ public class PlayerItemInventory : MonoBehaviour
         {
             swapItem(3);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            swapItem(4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            swapItem(5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            swapItem(6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            swapItem(7);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            swapItem(8);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            swapItem(9);
+        }
     }
-
-    #region Item Switching
-    public List<GameObject> heldItems;
-
-    void swapItem(int index)
-    {
-        heldItems[activeItemIndex].SetActive(false);
-        heldItems[index].SetActive(true);
-        activeItemIndex = index;
-    }
-    #endregion
+#endregion
 }

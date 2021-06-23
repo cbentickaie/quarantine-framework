@@ -43,5 +43,7 @@ public class PauseControl : MonoBehaviour
                 Pcon.PausePlayer(false);
             }
         }
+   
+
     }
 }

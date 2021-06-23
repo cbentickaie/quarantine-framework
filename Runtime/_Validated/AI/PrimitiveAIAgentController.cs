@@ -315,7 +315,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
                     Debug.DrawLine(p1, hit.point, Color.red, Time.deltaTime);
                     //print(hit.collider.gameObject);
                 }
-                else if (hit.collider.gameObject != HostileTarget || !hit.collider)
+                else if (hit.collider.gameObject != HostileTarget || hit.collider == null)
                 {
                     if (seeHostileTarget)
                     {
