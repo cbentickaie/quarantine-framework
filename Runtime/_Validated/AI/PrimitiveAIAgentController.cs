@@ -14,7 +14,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
     public float DestinationAcceptRadius = 2.0f;
     //public float MeleeAttackRange = 1.0f;
     [SerializeField] AiStates currentState = AiStates.Wander;
-    [SerializeField] AiStates previousState = AiStates.Idle;
+    [SerializeField] AiStates previousState = AiStates.Wander;
 
     [Header("Agent Sensing Parameters")]
     [SerializeField] bool seeHostileTarget = false;
@@ -58,13 +58,14 @@ public class PrimitiveAIAgentController : MonoBehaviour
 
     float stateAge;
 
-
+    GameObject playerController;
 
     // Start is called before the first frame update
     void Start()
     {
         initAI();
-        HostileTarget = GameObject.FindGameObjectWithTag("Player");
+        playerController = HostileTarget = GameObject.FindGameObjectWithTag("Player");
+        HostileTarget = playerController;
         StartCoroutine(SwapAiState(currentState, true));
     }
 
@@ -90,6 +91,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
             switch (newstate)
             {
                 case AiStates.Idle:
+                    print("Switching to Idle from: " + previousState);
                     yield return new WaitForSeconds(1.6f);
                     print("Idle loopin");
                     break;
@@ -137,7 +139,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
         //update Hostile Target info
         if (!HostileTarget)
         {
-            StartCoroutine(SwapAiState(AiStates.Idle));
+            StartCoroutine(SwapAiState(AiStates.Wander));
         }
 
         // Update destination if the target is beyond 1 unit from the agent
@@ -160,6 +162,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
         {
             case AiStates.Idle:                
                 print("Idle loopin");
+                sphereLineOfSight();
                 break;
 
             case AiStates.Wander:
@@ -182,7 +185,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
                 agent.updateRotation = true;
                 sphereLineOfSight();
                 chaseTarget();
-                print("Pursuing Target");                               
+                //print("Pursuing Target");                               
                 break;
 
             case AiStates.Retreating:
@@ -293,7 +296,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
                 distanceToObstacle = hit.distance;
                 if (hit.collider.gameObject == HostileTarget.gameObject)
                 {
-                    if (!seeHostileTarget) 
+                    if (!seeHostileTarget)
                     {
                         seeHostileTarget = true;
                         lastSeenPosition = hit.point;
@@ -305,12 +308,12 @@ public class PrimitiveAIAgentController : MonoBehaviour
                     if (currentSight >= defaultsightNoticeTime)
                     {
                         currentSight = defaultsightNoticeTime;
-                        
+
                     }
 
 
                     Debug.DrawLine(p1, hit.point, Color.red, Time.deltaTime);
-                    print(hit.collider.gameObject);
+                    //print(hit.collider.gameObject);
                 }
                 else if (hit.collider.gameObject != HostileTarget || !hit.collider)
                 {
@@ -321,35 +324,49 @@ public class PrimitiveAIAgentController : MonoBehaviour
                         SwapAiState(AiStates.Investigating);
 
                     }
-                    else if (!seeHostileTarget) 
+                    else if (!seeHostileTarget)
                     {
                         //hold off on losing sight until timer expired
-                        
+
 
                         Debug.DrawRay(p1, ((HostileTarget.GetComponent<Collider>().bounds.center - p1).normalized * 150.0f), Color.yellow);
-                        if ((currentSight - Time.deltaTime) <= 0)
+                        if (currentSight > 0 && (currentSight - Time.deltaTime) <= 0)
                         {
                             currentSight = 0;
                             seeHostileTarget = false;
+                            HostileTarget = null;
                             StartCoroutine(SwapAiState(previousState));
                         }
                         else if (currentSight > 0)
                         {
-                            currentSight -= Time.deltaTime;
+                            currentSight -= (Time.deltaTime * 0.314f);
                         }
 
                     }
 
-                    
+
                     //lastSeenPosition =
 
                 }
             }
         }
+        else if (!HostileTarget && (playerController.transform.position - agent.transform.position).magnitude < AgentSightDistance) 
+        {
+            Debug.DrawRay(p1, (((playerController.transform.position + playerController.transform.up * eyeHeight) - p1).normalized * 150.0f), Color.blue);
+            HostileTarget = playerController;
+            if (Physics.SphereCast(p1, 0.5f, ((playerController.transform.position + playerController.transform.up * eyeHeight) - p1), out hit, AgentSightDistance))
+            {
+                
+            }
+        }
+
     }
 
     void chaseTarget()
     {
+        if (HostileTarget) 
+        {
+        
         tickDistanceToTarget();
         destination = HostileTarget.transform.position + (HostileTarget.transform.forward * (meleeAttackDistance * 0.5f));
 
@@ -361,7 +378,8 @@ public class PrimitiveAIAgentController : MonoBehaviour
         
         //FindPositionNearTarget(HostileTarget);
         agent.SetDestination(destination);
-        //agent.
+            //agent.
+        }
     }
 
 
