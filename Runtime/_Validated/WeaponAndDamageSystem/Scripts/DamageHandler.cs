@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Damage types compiled from 
+//https://forums.giantitp.com/showthread.php?379165-MM-Resistances-Immunities-Vulnerabilities-and-Damage
+//Stanard DnD Damage types, not inclusive.
+public enum DamageTypes { _Default, Piercing, Bludgeoning, Slashing, Radiant, Explosive, Fire, Cold, Acid, Psychic}
+
 public class DamageHandler : MonoBehaviour {
 
     //public delegate void OnDeathDelegate();
@@ -10,6 +15,7 @@ public class DamageHandler : MonoBehaviour {
     public float MaxHealth = 100;
     public float HealthRatio = 1.0f;
     public bool AppliesDamage = false;
+    public DamageTypes DamageTypeToApply = DamageTypes._Default;
     public bool DestroySelf = false;
     public float DamageAmount = 10;
     public ParticleSystem DamageFX;
@@ -27,7 +33,6 @@ public class DamageHandler : MonoBehaviour {
 
     public bool AppliesRepeatedDamage = false;
     public float frequency = 0.5f;
-    [SerializeField]
     private bool isContacting = false;
     [SerializeField]
     GameObject contactObject;
@@ -92,58 +97,24 @@ public class DamageHandler : MonoBehaviour {
         //print("Unllocking damage");
     }
 
+    #region Collision Based Damage Handling
     void OnCollisionEnter(Collision other)
     {
-        
+        //Apply regular damage if NOT repeating
         if (AppliesDamage && !AppliesRepeatedDamage)
         {
             //isApplyingDamage = true;
             //StartCoroutine("DelayNextDamage");
+            DamageHandler dh;
+            
             if (!isBouncer)
             {
                // Debug.Log("Hit Something");
                 if (other.gameObject.GetComponent<DamageHandler>() != null)
                 {
-                    //print(other.collider.name + "damaged for " + DamageAmount);
-                    other.gameObject.GetComponent<DamageHandler>().ApplyDamage(DamageAmount);
-                    if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
-                    if (DestroySelf) 
-                    {
-                        Destroy(gameObject);
-                    }                    
-                }
-
-                
-
-
-                if (useAudioforDesctruction)
-                {
-                    if (DestroySelf)
-                    {
-                        if (damageAudioSrc && damageAudioSrc.clip)
-                        {
-                            damageAudioSrc.Play();
-                            //destroy this actor once the duration of the audio has elapsed
-                            Destroy(gameObject, damageAudioSrc.clip.length);
-                        }
-                        else 
-                        {
-                            Destroy(gameObject);
-                        }
-
-                    }
-                }
-                else if (!useAudioforDesctruction)
-                {
-                    if (DestroySelf) 
-                    {
-                        if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
-                        Destroy(gameObject);
-                    }                    
-                }
-                
-
-                
+                    dh = other.gameObject.GetComponent<DamageHandler>();
+                    ApplyDamageToTarget(dh, DamageTypeToApply);
+                }  
             }
             else if (isBouncer)
             {
@@ -152,7 +123,7 @@ public class DamageHandler : MonoBehaviour {
                 {
                     if (other.gameObject.GetComponent<DamageHandler>() != null)
                     {
-                        other.gameObject.GetComponent<DamageHandler>().ApplyDamage(DamageAmount);
+                        other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(DamageAmount);
                     }
 
                     if(DamageFX){ ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem;}
@@ -197,12 +168,42 @@ public class DamageHandler : MonoBehaviour {
     {
         while (isContacting && contactDamageH) 
         {
-            contactDamageH.ApplyDamage(DamageAmount);
+            contactDamageH.ReceiveDamage(DamageAmount);
             print("REPEAT DAMAGE APPLIED");
             yield return new WaitForSeconds(frequency);
         }
     
     }
+
+
+    void ApplyDamageToTarget(DamageHandler dh, DamageTypes dType) 
+    {
+        switch (dType)
+        {
+            //print(other.collider.name + "damaged for " + DamageAmount + DamageTypeToApply.ToString);
+            case DamageTypes._Default:
+                //other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(DamageAmount);
+                //if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
+                //if (DestroySelf)
+                //{
+                //    Destroy(gameObject);
+                //}
+                dh.ReceiveDamage(DamageAmount);
+                break;
+            case DamageTypes.Bludgeoning:
+                dh.ReceiveDamage(DamageAmount);
+                print("Did Bludgeon Damage");
+                break;
+        }
+        
+        if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
+        if (DestroySelf)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+    
     private void OnCollisionStay(Collision collision)
     {
         //InvokeRepeating("ApplyDamage(DamageAmount)", 0.5f, 0.5f);
@@ -223,6 +224,8 @@ public class DamageHandler : MonoBehaviour {
 
 
     }
+    #endregion
+
     void updateHealthRatio() 
     {
         HealthRatio = CurrentHealth / MaxHealth;
@@ -261,7 +264,7 @@ public class DamageHandler : MonoBehaviour {
         damageAudioSrc.clip = DeathSound;
         damageAudioSrc.Play();
     }
-    public void ApplyDamage(float DamageAmount)
+    public void ReceiveDamage(float DamageAmount)
     {
         
         if (CurrentHealth - DamageAmount > 0)

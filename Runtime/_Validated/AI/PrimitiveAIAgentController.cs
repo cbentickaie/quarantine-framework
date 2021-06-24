@@ -430,7 +430,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
             DamageHandler dh;
             if (dh = meleeHit.collider.gameObject.GetComponent<DamageHandler>())
             {
-                dh.ApplyDamage(meleeDamage);
+                dh.ReceiveDamage(meleeDamage);
                 if (meleeDamageFx)
                 {
                     ParticleSystem DamageParticles = (ParticleSystem)Instantiate(meleeDamageFx, gameObject.GetComponent<Collider>().bounds.center, transform.rotation) as ParticleSystem;

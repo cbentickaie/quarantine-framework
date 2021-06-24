@@ -127,7 +127,7 @@ public class MeleeWeaponScript : MonoBehaviour
         {
             gameObject.GetComponent<Collider>().isTrigger = true;
             if (impactFx) { GameObject.Instantiate(impactFx, collision.GetContact(0).point, collision.transform.rotation); }            
-            collision.gameObject.GetComponent<DamageHandler>().ApplyDamage(meleeDamage);
+            collision.gameObject.GetComponent<DamageHandler>().ReceiveDamage(meleeDamage);
             indicatorMat.color = Color.red;
             print("Collided with: " + collision.collider.gameObject.name);
             
@@ -158,7 +158,7 @@ public class MeleeWeaponScript : MonoBehaviour
             GameObject.Instantiate(impactFx, other.transform);
             if (other.gameObject.GetComponent<DamageHandler>())
             {
-                other.gameObject.GetComponent<DamageHandler>().ApplyDamage(meleeDamage);
+                other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(meleeDamage);
                 print(other.gameObject.name);
             }            
             indicatorMat.color = Color.red;

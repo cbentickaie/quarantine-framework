@@ -217,7 +217,7 @@ public class WeaponScript : MonoBehaviour {
             //Check whether the impacted colliders' gameobject has a valid DamageHandler Component
             if (hits[0].collider.gameObject.GetComponent<DamageHandler>())
             {
-                hits[0].collider.gameObject.GetComponent<DamageHandler>().ApplyDamage(TraceDamageAmount);
+                hits[0].collider.gameObject.GetComponent<DamageHandler>().ReceiveDamage(TraceDamageAmount);
             }
         }
 

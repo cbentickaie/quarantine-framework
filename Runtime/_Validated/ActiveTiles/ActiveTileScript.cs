@@ -74,7 +74,7 @@ public class ActiveTileScript : MonoBehaviour {
         DamageHandler DmgH = playerObj.GetComponent<DamageHandler>();
         if (DmgH) 
         {
-            DmgH.ApplyDamage(damageLevel);
+            DmgH.ReceiveDamage(damageLevel);
         }
         Invoke("ResetTile", ResetDelay);
     }
