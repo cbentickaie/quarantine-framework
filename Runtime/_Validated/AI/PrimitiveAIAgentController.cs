@@ -47,6 +47,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
 
     [Header("Melee Attack Variables")]
     //Melee Attack Vars
+    public DamageTypes damageType = DamageTypes.Bludgeoning;
     float meleeAttackDuration = 1.2f;
     public float meleeAttackDistance = 2.5f;
     //MeleeWeaponScript meleeWeapon;
@@ -430,7 +431,7 @@ public class PrimitiveAIAgentController : MonoBehaviour
             DamageHandler dh;
             if (dh = meleeHit.collider.gameObject.GetComponent<DamageHandler>())
             {
-                dh.ReceiveDamage(meleeDamage);
+                dh.ReceiveDamage(meleeDamage, damageType);
                 if (meleeDamageFx)
                 {
                     ParticleSystem DamageParticles = (ParticleSystem)Instantiate(meleeDamageFx, gameObject.GetComponent<Collider>().bounds.center, transform.rotation) as ParticleSystem;

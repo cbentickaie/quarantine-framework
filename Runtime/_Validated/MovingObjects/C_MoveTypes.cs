@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum MoveTypes
 {
-    MoveOnce, LoopOnce, PingPong
+    DirectControl, MoveOnce, LoopOnce, PingPong
 }
 public enum MoveDirections 
 {

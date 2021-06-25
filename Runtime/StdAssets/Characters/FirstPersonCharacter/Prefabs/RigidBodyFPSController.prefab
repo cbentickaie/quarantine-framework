@@ -34,7 +34,7 @@ Transform:
   - {fileID: 4996846592091528}
   - {fileID: 8046715773647297917}
   - {fileID: 4162152211685764277}
-  - {fileID: 8293231946153892453}
+  - {fileID: 6373507563689431960}
   m_Father: {fileID: 400002}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -354,6 +354,7 @@ MonoBehaviour:
   MaxHealth: 100
   HealthRatio: 1
   AppliesDamage: 0
+  DamageTypeToApply: 0
   DestroySelf: 0
   DamageAmount: 10
   DamageFX: {fileID: 6038193054217992011, guid: 06ed633e38eb32045b27a7c34e136f24, type: 3}
@@ -370,7 +371,6 @@ MonoBehaviour:
   myPcon: {fileID: 0}
   AppliesRepeatedDamage: 0
   frequency: 0.5
-  isContacting: 0
   contactObject: {fileID: 0}
   isApplyingDamage: 0
 --- !u!82 &7465511327806858072
@@ -615,6 +615,38 @@ FixedJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 0.01
   m_ConnectedMassScale: 0.01
+--- !u!1 &169532553479705246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6373507563689431960}
+  m_Layer: 0
+  m_Name: ShockingStick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6373507563689431960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169532553479705246}
+  m_LocalRotation: {x: 0.15755914, y: -0.7663203, z: 0.20533502, w: 0.58801854}
+  m_LocalPosition: {x: 0.44, y: -0.26, z: 0.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8293231946153892453}
+  - {fileID: 2437168014645621309}
+  m_Father: {fileID: 400000}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 30, y: -105, z: 0}
 --- !u!1 &2487102036247371784
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,12 +660,12 @@ GameObject:
   - component: {fileID: 201541394469816666}
   - component: {fileID: 5663361804660352228}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: ShockStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8293231946153892453
 Transform:
   m_ObjectHideFlags: 0
@@ -641,13 +673,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2487102036247371784}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.44, y: -0.26, z: 0.79}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: -0.061084747, y: 0.023452818, z: -0.40197036, w: 0.91331184}
+  m_LocalPosition: {x: 0.3210001, y: 0.2939998, z: -0.056999743}
+  m_LocalScale: {x: 0.099999994, y: 0.52150995, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 400000}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 6373507563689431960}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -5.32, y: 5.299, z: -47.757}
 --- !u!33 &4891675253388328045
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -777,6 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507096a52850174458c063ae7fd3a08f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageType: 3
   impactFx: {fileID: 472194164636336269, guid: a2da3b7c218773348b1b211cbc60e12c, type: 3}
   WeaponMesh: {fileID: 3257035178143285738}
   meleeDamage: 1
@@ -815,6 +848,132 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!1 &8348607843916595317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2437168014645621309}
+  - component: {fileID: 1738377389249375640}
+  - component: {fileID: 5069836170960980814}
+  - component: {fileID: 62528660648485778}
+  - component: {fileID: 4763522667479648092}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2437168014645621309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348607843916595317}
+  m_LocalRotation: {x: -0.061084796, y: 0.02345279, z: -0.40197036, w: 0.9133117}
+  m_LocalPosition: {x: 0.77, y: 0.705, z: -0.137}
+  m_LocalScale: {x: 0.15039, y: 0.15039, z: 0.15039}
+  m_Children: []
+  m_Father: {fileID: 6373507563689431960}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1738377389249375640
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348607843916595317}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5069836170960980814
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348607843916595317}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &62528660648485778
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348607843916595317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: -0.0000009536743, y: 0, z: 0.0000009536743}
+--- !u!114 &4763522667479648092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348607843916595317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9dedae2861bc84891bca396e6d89d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: 100
+  MaxHealth: 100
+  HealthRatio: 1
+  AppliesDamage: 1
+  DamageTypeToApply: 11
+  DestroySelf: 0
+  DamageAmount: 10
+  DamageFX: {fileID: 198000010946765634, guid: cbf96688cd2100645987e319169af4e1, type: 3}
+  isBouncer: 0
+  damageAudioSrc: {fileID: 0}
+  DeathSound: {fileID: 0}
+  DamageSounds: []
+  useAudioforDesctruction: 0
+  myPcon: {fileID: 0}
+  AppliesRepeatedDamage: 0
+  frequency: 0.5
+  contactObject: {fileID: 0}
+  isApplyingDamage: 0
 --- !u!1001 &3257035178143319882
 PrefabInstance:
   m_ObjectHideFlags: 0

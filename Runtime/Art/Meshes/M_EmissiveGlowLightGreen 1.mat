@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_GrenadeGlow
+  m_Name: M_EmissiveGlowLightGreen 1
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 2
@@ -73,6 +73,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.6901961, g: 0.5921569, b: 0.7137255, a: 1}
-    - _EmissionColor: {r: 0.0627451, g: 0.98039216, b: 2, a: 1}
+    - _Color: {r: 0.15686275, g: 0.6901961, b: 0.15686275, a: 1}
+    - _EmissionColor: {r: 0.078431375, g: 1.7411765, b: 0.078431375, a: 1}
   m_BuildTextureStacks: []

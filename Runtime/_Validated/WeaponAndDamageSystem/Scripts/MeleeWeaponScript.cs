@@ -6,6 +6,7 @@ public class MeleeWeaponScript : MonoBehaviour
 {
     [Header("Variables")]
     Animator MeleeAnimator;
+    public DamageTypes damageType = DamageTypes.Slashing;
     public GameObject impactFx;
     [SerializeField] GameObject WeaponMesh;
     [SerializeField] float meleeDamage = 16.0f;
@@ -127,7 +128,7 @@ public class MeleeWeaponScript : MonoBehaviour
         {
             gameObject.GetComponent<Collider>().isTrigger = true;
             if (impactFx) { GameObject.Instantiate(impactFx, collision.GetContact(0).point, collision.transform.rotation); }            
-            collision.gameObject.GetComponent<DamageHandler>().ReceiveDamage(meleeDamage);
+            collision.gameObject.GetComponent<DamageHandler>().ReceiveDamage(meleeDamage, damageType);
             indicatorMat.color = Color.red;
             print("Collided with: " + collision.collider.gameObject.name);
             
@@ -158,7 +159,7 @@ public class MeleeWeaponScript : MonoBehaviour
             GameObject.Instantiate(impactFx, other.transform);
             if (other.gameObject.GetComponent<DamageHandler>())
             {
-                other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(meleeDamage);
+                other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(meleeDamage, damageType);
                 print(other.gameObject.name);
             }            
             indicatorMat.color = Color.red;

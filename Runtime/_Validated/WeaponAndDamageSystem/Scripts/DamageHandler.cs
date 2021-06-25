@@ -4,7 +4,7 @@ using System.Collections;
 //Damage types compiled from 
 //https://forums.giantitp.com/showthread.php?379165-MM-Resistances-Immunities-Vulnerabilities-and-Damage
 //Stanard DnD Damage types, not inclusive.
-public enum DamageTypes { _Default, Piercing, Bludgeoning, Slashing, Radiant, Explosive, Fire, Cold, Acid, Psychic}
+public enum DamageTypes { _Default, Piercing, Bludgeoning, Slashing, Radiant, Explosive, Fire, Cold, Acid, Psychic, Laser, Electricity}
 
 public class DamageHandler : MonoBehaviour {
 
@@ -123,7 +123,7 @@ public class DamageHandler : MonoBehaviour {
                 {
                     if (other.gameObject.GetComponent<DamageHandler>() != null)
                     {
-                        other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(DamageAmount);
+                        other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(DamageAmount, DamageTypeToApply);
                     }
 
                     if(DamageFX){ ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem;}
@@ -168,7 +168,7 @@ public class DamageHandler : MonoBehaviour {
     {
         while (isContacting && contactDamageH) 
         {
-            contactDamageH.ReceiveDamage(DamageAmount);
+            contactDamageH.ReceiveDamage(DamageAmount, DamageTypes._Default);
             print("REPEAT DAMAGE APPLIED");
             yield return new WaitForSeconds(frequency);
         }
@@ -178,23 +178,7 @@ public class DamageHandler : MonoBehaviour {
 
     void ApplyDamageToTarget(DamageHandler dh, DamageTypes dType) 
     {
-        switch (dType)
-        {
-            //print(other.collider.name + "damaged for " + DamageAmount + DamageTypeToApply.ToString);
-            case DamageTypes._Default:
-                //other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(DamageAmount);
-                //if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
-                //if (DestroySelf)
-                //{
-                //    Destroy(gameObject);
-                //}
-                dh.ReceiveDamage(DamageAmount);
-                break;
-            case DamageTypes.Bludgeoning:
-                dh.ReceiveDamage(DamageAmount);
-                print("Did Bludgeon Damage");
-                break;
-        }
+        dh.ReceiveDamage(DamageAmount, dType);
         
         if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
         if (DestroySelf)
@@ -264,9 +248,9 @@ public class DamageHandler : MonoBehaviour {
         damageAudioSrc.clip = DeathSound;
         damageAudioSrc.Play();
     }
-    public void ReceiveDamage(float DamageAmount)
+    public void ReceiveDamage(float DamageAmount, DamageTypes dType)
     {
-        
+        #region Boilerplate Damage Handling
         if (CurrentHealth - DamageAmount > 0)
         {
             CurrentHealth = CurrentHealth - DamageAmount;
@@ -296,6 +280,40 @@ public class DamageHandler : MonoBehaviour {
         {
            // playDeathSound();
         }
+        #endregion
+        #region Damage Type Handling
+        switch (dType)
+        {
+            //print(other.collider.name + "damaged for " + DamageAmount + DamageTypeToApply.ToString);
+            case DamageTypes._Default:
+                //other.gameObject.GetComponent<DamageHandler>().ReceiveDamage(DamageAmount);
+                //if (DamageFX) { ParticleSystem sparks = (ParticleSystem)Instantiate(DamageFX, transform.position, transform.rotation) as ParticleSystem; }
+                //if (DestroySelf)
+                //{
+                //    Destroy(gameObject);
+                //}
+                print("Did Default Damage");
+                break;
+            case DamageTypes.Bludgeoning:
+                
+                print("Did Bludgeon Damage");
+                if (!gameObject.GetComponent<C_StunnedStatus>())
+                {
+                    gameObject.AddComponent<C_StunnedStatus>();
+                }
+                break;
+            case DamageTypes.Laser:
+
+                print("Did Laser Damage");
+                break;
+            case DamageTypes.Electricity:
+                if (!gameObject.GetComponent<C_ShockedStatus>()) 
+                {
+                    gameObject.AddComponent<C_ShockedStatus>();
+                }                
+                break;
+        }
+        #endregion
     }
 
 

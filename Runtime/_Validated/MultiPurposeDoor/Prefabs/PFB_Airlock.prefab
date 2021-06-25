@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4683049576492155240}
-  m_Mesh: {fileID: 4300000, guid: 3f6dd71aad5e68046a747f47f19cdb6f, type: 3}
+  m_Mesh: {fileID: -1128193896723917613, guid: ffdf4200aac9b1c4ba130a151218ab97, type: 3}
 --- !u!23 &4683049576494096296
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -57,10 +57,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3f6dd71aad5e68046a747f47f19cdb6f, type: 3}
+  - {fileID: 2100000, guid: bbc2421c96acd3249b328f0a64c2651c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &4683049576490069960
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -91,10 +93,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 3f6dd71aad5e68046a747f47f19cdb6f, type: 3}
+  m_Mesh: {fileID: -1128193896723917613, guid: ffdf4200aac9b1c4ba130a151218ab97, type: 3}
 --- !u!114 &4683049576907083915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +152,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4683049576492155242}
-  m_Mesh: {fileID: 4300002, guid: 3f6dd71aad5e68046a747f47f19cdb6f, type: 3}
+  m_Mesh: {fileID: -2352948693921710465, guid: 0fe5050c273d3c441931d696971c1145, type: 3}
 --- !u!23 &4683049576494096298
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -166,10 +168,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3f6dd71aad5e68046a747f47f19cdb6f, type: 3}
+  - {fileID: 2100000, guid: bbc2421c96acd3249b328f0a64c2651c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,6 +193,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &4683049576490069962
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -200,10 +204,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 3f6dd71aad5e68046a747f47f19cdb6f, type: 3}
+  m_Mesh: {fileID: -2352948693921710465, guid: 0fe5050c273d3c441931d696971c1145, type: 3}
 --- !u!114 &4683049577199724426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,4 +285,17 @@ MonoBehaviour:
   requireInput: 0
   isLocked: 0
   closeBehindPlayer: 1
+  doorSpeed: 1
   DoorComponents: []
+  DoorOpeningEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DoorClosingEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DoorLockedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DoorUnlockedEvent:
+    m_PersistentCalls:
+      m_Calls: []

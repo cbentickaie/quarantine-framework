@@ -13,6 +13,7 @@ public class WeaponScript : MonoBehaviour {
     public bool useAmmoCounting = false;
 
     public WeaponTypes weaponType;
+    public DamageTypes damageType = DamageTypes.Piercing;
     public Transform MuzzlePoint;
 
     [Header("Prefab Assignments")]
@@ -217,7 +218,7 @@ public class WeaponScript : MonoBehaviour {
             //Check whether the impacted colliders' gameobject has a valid DamageHandler Component
             if (hits[0].collider.gameObject.GetComponent<DamageHandler>())
             {
-                hits[0].collider.gameObject.GetComponent<DamageHandler>().ReceiveDamage(TraceDamageAmount);
+                hits[0].collider.gameObject.GetComponent<DamageHandler>().ReceiveDamage(TraceDamageAmount, damageType);
             }
         }
 

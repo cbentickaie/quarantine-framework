@@ -36,8 +36,18 @@ public class C_MoveObjectInDirection : MonoBehaviour
         // Calculate the journey length.
         CalculateEndLocation();
         journeyLength = Vector3.Distance(startLocation, endLocation);
+        switch (MovementType) 
+        {
+            case MoveTypes.DirectControl:
+                isrunning = false;
+                break;
+        }
     }
-
+    public void directMoveStart() 
+    {
+        startTime = Time.time;
+        isrunning = true;
+    }
     void movePlatform() 
     {
         // Distance moved equals elapsed time times speed..
@@ -108,6 +118,9 @@ public class C_MoveObjectInDirection : MonoBehaviour
                 break;
             case MoveTypes.PingPong:
                 isrunning = true;
+                break;
+            case MoveTypes.DirectControl:
+                isrunning = false;
                 break;
         }
     }
