@@ -5,6 +5,8 @@ using UnityEngine;
 public class C_StunnedStatus : C_StatusEffect
 {
     [SerializeField] float StunDuration = 2.4f;
+
+
     public override void ApplyNewStatus()
     {
         base.ApplyNewStatus();

@@ -83,6 +83,11 @@ public class C_SlotComponent : MonoBehaviour
                 SlotKeyObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
             }
             isOccupied = true;
+
+            if (SlotKeyObject.GetComponent<C_HoldableItem>()) 
+            {
+                SlotKeyObject.GetComponent<C_HoldableItem>().ItemDropped();
+            }
             SlotOccupied();
         }
     }

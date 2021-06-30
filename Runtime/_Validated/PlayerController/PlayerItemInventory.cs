@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerItemInventory : MonoBehaviour
 {
-    int activeItemIndex;
+    public int activeItemIndex;
 
     public int bulletAmmocount = 32;
     public int grenadeAmmoCount = 6;
@@ -12,15 +12,11 @@ public class PlayerItemInventory : MonoBehaviour
     public List<GameObject> heldItems;
     [SerializeField] bool AutoGatherHeldItems = false;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         if (AutoGatherHeldItems) 
         {
-            heldItems.Clear();
-            foreach (Transform child in GetComponentInChildren<Camera>().gameObject.transform) 
-            {
-                heldItems.Add(child.gameObject);
-            }
+            GatherHeldItems();
         }
     }
 
@@ -93,7 +89,7 @@ public class PlayerItemInventory : MonoBehaviour
     #region Item Switching
     
 
-    void swapItem(int index)
+    public void swapItem(int index)
     {
         if (index < heldItems.Count)
         {
@@ -103,6 +99,20 @@ public class PlayerItemInventory : MonoBehaviour
         }
         else { print("No valid HeldItem at that Index"); }
     }
+
+    public void dropItem(GameObject itemToDrop) 
+    {
+        if (heldItems.Contains(itemToDrop)) 
+        {
+            swapItem(0);
+            print("inventory dropping item");
+            heldItems.Remove(itemToDrop);
+            
+            GatherHeldItems();
+            
+        }
+    }
+
     #endregion
 
     #region Input Mapping - Hacky
@@ -151,5 +161,15 @@ public class PlayerItemInventory : MonoBehaviour
             swapItem(9);
         }
     }
-#endregion
+    #endregion
+
+    //Gather Held Items
+    void GatherHeldItems() 
+    {
+        heldItems.Clear();
+        foreach (Transform child in GetComponentInChildren<Camera>().gameObject.transform)
+        {
+            heldItems.Add(child.gameObject);
+        }
+    }
 }

@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
     public List<GameObject> AvatarInstances;
     public string PlayerTag = "Player";
     Camera PconCamera;
-    public float statDepletionRate = 3.14f;
+    public float statDepletionRate = 1.0f;
     DamageHandler playerDH;
 
     public bool reloadOnPlayerDeath = false;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
     Quaternion ControllerStartRotation;
 
     bool PlayerPaused = false;
-
+    PlayerItemInventory pInv;
     [ExecuteInEditMode]
     //Awake is always called before any Start functions
     void Awake()
@@ -100,10 +100,12 @@ public class PlayerController : MonoBehaviour {
         }
         PlayerHudManager.instance.UpdateStatsPanel();
         PlayerHudManager.instance.DoScreenFade(true);
+
+        pInv = AvatarInstances[AvatarIndex].GetComponent<PlayerItemInventory>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+    private C_HoldableItem heldUsable;
+    // Update is called once per frame
+    void Update ()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -113,6 +115,26 @@ public class PlayerController : MonoBehaviour {
 
         tickDownStat(PickupTypes.notoriety);
         tickDownStat(PickupTypes.popularity);
+
+        if (Input.GetButtonDown("Fire1")) 
+        {
+            print(pInv.activeItemIndex);
+            heldUsable = pInv.heldItems[pInv.activeItemIndex].GetComponent<C_HoldableItem>();
+            if(heldUsable)
+            {
+                heldUsable.startUseItem();
+            }
+            else 
+            {
+                heldUsable = null;
+            }
+            
+        }
+        if (Input.GetButtonUp("Fire1") && heldUsable)
+        {
+            heldUsable.stopUseItem();
+            heldUsable = null;
+        }
     }
 
     
@@ -166,6 +188,7 @@ public class PlayerController : MonoBehaviour {
 
         //TODO: make this resume from previous index
         AvatarIndex = 0;
+        pInv = AvatarInstances[AvatarIndex].GetComponent<PlayerItemInventory>();
     }
     #endregion
 
@@ -194,9 +217,9 @@ public class PlayerController : MonoBehaviour {
     public float currentFood = 0;
     public float maxFood = 10.0f;
 
-    public GameObject[] heldItems;
-    private int activeItemIndex;
-    private GameObject currentActiveItem;
+    //public GameObject[] heldItems;
+    
+    //private GameObject currentActiveItem;
     #endregion
 
     
@@ -298,7 +321,14 @@ public class PlayerController : MonoBehaviour {
         {
             case PickupTypes.notoriety:
                 //We want to operate on our variables in here
-                currentNotoriety -= Time.deltaTime;
+                if ((currentNotoriety - Time.deltaTime) > 0)
+                {
+                    currentNotoriety -= Time.deltaTime;
+                }
+                else if(currentNotoriety != 0)
+                {
+                    currentNotoriety = 0;
+                }
                // print("Notorious as: " + currentNotoriety);
                 break;
 
@@ -306,6 +336,14 @@ public class PlayerController : MonoBehaviour {
                 //We want to operate on our variables in here
                 currentPopularity -= (Time.deltaTime * statDepletionRate) ;
                 //print("Popular as: " + currentPopularity);
+                if ((currentPopularity - (Time.deltaTime * statDepletionRate)) > 0)
+                {
+                    currentPopularity -= (Time.deltaTime * statDepletionRate);
+                }
+                else if (currentPopularity != 0)
+                {
+                    currentPopularity = 0;
+                }
                 break;
         }
     }
