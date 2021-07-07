@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class C_SlotComponent : MonoBehaviour
 {
-    public bool useInteractables = true;
+    [HideInInspector] public bool useInteractables = true;
     [SerializeField]
-    List<Interactable> Interactables;
+    [HideInInspector] List<Interactable> Interactables;
     [SerializeField]
     GameObject SlotKeyObject;
     [SerializeField]
-    bool isOccupied = false;
+    [HideInInspector] bool isOccupied = false;
     [SerializeField]
     bool snapObjectToSlot = true;
     Rigidbody keyRB;
@@ -18,28 +19,99 @@ public class C_SlotComponent : MonoBehaviour
     Mesh KeyMeshIndicator;
     Collider SlotTriggerVolume;
     [ExecuteInEditMode]
-
-
+    [SerializeField] Material previewMaterial;
+    public UnityEvent SlotOccupiedEvent;
     //THIS IS HACKY DONT EVER TELL ANYONE I DID THIS :S
-    public bool useCommodityDoorMode = false;
-    public C_CheckCommodityToUnlockDoor DoorCommodityChecker;
+    [HideInInspector] public bool useCommodityDoorMode = false;
+    [HideInInspector] public C_CheckCommodityToUnlockDoor DoorCommodityChecker;
     public MultiDoor MultiDoor;
+    [SerializeField] List<MeshFilter> SourceMeshes;
     private void Awake()
     {
-        if (useMeshPreview && (KeyMeshIndicator = SlotKeyObject.GetComponentInChildren<MeshFilter>().mesh)) 
-        {
-            gameObject.GetComponentInChildren<MeshFilter>().mesh = KeyMeshIndicator;
-            gameObject.GetComponentInChildren<MeshFilter>().gameObject.transform.localPosition = Vector3.zero;
-            gameObject.GetComponentInChildren<MeshFilter>().gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
-            gameObject.GetComponentInChildren<MeshFilter>().gameObject.transform.localScale = Vector3.one;
-        }
-        SlotTriggerVolume = GetComponent<Collider>();
 
+
+    }
+
+
+    void collectAndMergeRenderers() 
+    {
+        //Add primary Meshfilters to SourceMeshes
+        foreach (MeshFilter mesh in SlotKeyObject.GetComponentsInChildren<MeshFilter>()) 
+        {
+            SourceMeshes.Add(mesh);
+            
+        }
+        for (int i = 0; i < SourceMeshes.Count; i++) 
+        {
+            GameObject curGO;
+            MeshFilter curMF;
+            MeshRenderer curMR;
+            MeshFilter m = SourceMeshes[i];
+            curGO = new GameObject("SlotPreviewmesh_" + m.name);
+
+            curGO.transform.rotation = m.gameObject.transform.rotation;
+            Vector3 curOffset = (m.gameObject.transform.position - gameObject.transform.position);
+            if (i != 0)
+            {
+                Vector3 worldpos = m.gameObject.transform.TransformPoint(m.gameObject.transform.position);
+                curGO.transform.position = worldpos;
+            }
+            else 
+            {
+                curGO.transform.position = transform.position;
+            }
+            
+
+            //curGO.transform.position = m.gameObject.transform.position + curOffset;
+            
+            print("SlotPreviewmesh_" + m.name);
+            //curGO.transform.parent = gameObject.transform;
+            //curGO.transform.SetParent(gameObject.transform);
+            curMF = curGO.AddComponent<MeshFilter>();
+            curMF.mesh = m.mesh;
+            curMR = curGO.AddComponent<MeshRenderer>();
+            curMR.material = previewMaterial;
+
+        }
+
+    }
+
+    void setupPreviewMesh() 
+    {
+        GameObject preview = GameObject.Instantiate(SlotKeyObject, gameObject.transform);
+        preview.transform.localPosition = Vector3.zero;
+
+        foreach (Transform T in preview.transform) 
+        {            
+                foreach (Component c in T.gameObject.GetComponents(typeof(Component))) 
+                {
+                    if (c is MeshFilter || c is MeshRenderer || c is Transform)
+                    {
+                    
+                    }
+                    else 
+                    {
+                    print("Slot Destroying: " + c.name);
+                        Destroy(c);
+                    }      
+                }            
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        setupPreviewMesh();
+        //collectAndMergeRenderers();
+        if (useMeshPreview && (KeyMeshIndicator = SlotKeyObject.GetComponentInChildren<MeshFilter>().mesh))
+        {
+            //gameObject.GetComponentInChildren<MeshFilter>().mesh = KeyMeshIndicator;
+            //gameObject.GetComponentInChildren<MeshFilter>().gameObject.transform.localPosition = Vector3.zero;
+            //gameObject.GetComponentInChildren<MeshFilter>().gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+            //gameObject.GetComponentInChildren<MeshFilter>().gameObject.transform.localScale = Vector3.one;
+        }
+        SlotTriggerVolume = GetComponent<Collider>();
+
         foreach (Interactable i in gameObject.GetComponents<Interactable>()) 
         {
             Interactables.Add(i);
@@ -124,6 +196,7 @@ public class C_SlotComponent : MonoBehaviour
     }
     void SlotOccupied() 
     {
+        SlotOccupiedEvent.Invoke();
         if (useInteractables) 
         {
             foreach (Interactable i in Interactables)

@@ -186,11 +186,15 @@ public class GrabObject : MonoBehaviour {
         if (!isPhysicsObject)
         {
             GrabbedObject.transform.parent = null;
-            if (dropReturnToHome) 
+            if (dropReturnToHome)
             {
                 GrabbedObject.transform.SetPositionAndRotation(homePosition, HomeRotation);
             }
-            GrabbedObject.transform.SetPositionAndRotation(homePosition, HomeRotation);
+            else 
+            {
+            //Do not intervene in the objects transform when releasing
+            }
+            
         }        
         GrabbedObject = null;
     }
@@ -205,5 +209,4 @@ public class GrabObject : MonoBehaviour {
             
         }        
     }
-
 }

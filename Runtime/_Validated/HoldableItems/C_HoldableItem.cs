@@ -10,7 +10,7 @@ public class C_HoldableItem : MonoBehaviour
     Bounds bounds;
     Vector3 localCenter;
     [SerializeField] Vector3 DefaultPositionOffset = new Vector3(0.439999998f, -0.25999999f, 0.790000021f);
-    [SerializeField] Vector3 DefaultRotationOffset = new Vector3(0.439999998f, -0.25999999f, 0.790000021f);
+    [SerializeField] Vector3 DefaultRotationOffset = new Vector3(0f, 0f, 0f);
     [HideInInspector]public bool isInUse = false;
     // Start is called before the first frame update
     void Start()

@@ -3,7 +3,11 @@ guid: e869a15dd8828fd478acdd163dd884b5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - SlotKeyObject: {instanceID: 0}
+  - previewMaterial: {fileID: 2100000, guid: 82ca9f6b8fa2e7249b23e993da159ccb, type: 2}
+  - DoorCommodityChecker: {instanceID: 0}
+  - MultiDoor: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
