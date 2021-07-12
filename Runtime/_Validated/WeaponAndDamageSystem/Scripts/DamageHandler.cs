@@ -15,6 +15,7 @@ public class DamageHandler : MonoBehaviour {
     public float MaxHealth = 100;
     public float HealthRatio = 1.0f;
     public bool AppliesDamage = false;
+    public float hitDamageThreshold = 8.0f;
     public DamageTypes DamageTypeToApply = DamageTypes._Default;
     public bool DestroySelf = false;
     public float DamageAmount = 10;
@@ -101,8 +102,9 @@ public class DamageHandler : MonoBehaviour {
     void OnCollisionEnter(Collision other)
     {
         //Apply regular damage if NOT repeating
-        if (AppliesDamage && !AppliesRepeatedDamage)
+        if (AppliesDamage && !AppliesRepeatedDamage && other.relativeVelocity.magnitude > hitDamageThreshold)
         {
+            print("IMPACT: "+ other.relativeVelocity.magnitude);
             //isApplyingDamage = true;
             //StartCoroutine("DelayNextDamage");
             DamageHandler dh;
