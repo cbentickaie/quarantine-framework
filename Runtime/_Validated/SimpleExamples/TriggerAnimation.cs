@@ -14,4 +14,10 @@ public class TriggerAnimation : MonoBehaviour
             Debug.Log("Animation State Triggered for: " + AnimTarget.name + ": " + TriggerName);
         }
     }
+
+    public void triggerAnimationDirectly() 
+    {
+        AnimTarget.SetTrigger(TriggerName);
+        Debug.Log("Animation State Triggered for: " + AnimTarget.name + ": " + TriggerName);
+    }
 }
