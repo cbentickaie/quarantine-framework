@@ -11,11 +11,15 @@ public class C_HoldableItem : MonoBehaviour
     Vector3 localCenter;
     [SerializeField] Vector3 DefaultPositionOffset = new Vector3(0.439999998f, -0.25999999f, 0.790000021f);
     [SerializeField] Vector3 DefaultRotationOffset = new Vector3(0f, 0f, 0f);
-    [HideInInspector]public bool isInUse = false;
+    [HideInInspector] public bool isInUse = false;
+    [HideInInspector] public bool animationEnabled = false;
+    [HideInInspector] public Animator AnimCon;
+    
     // Start is called before the first frame update
     void Start()
     {
         setupCollisionForPickup();
+        InitAnimation();
     }
     void setupCollisionForPickup() 
     {
@@ -24,6 +28,15 @@ public class C_HoldableItem : MonoBehaviour
         pickupCollider.isTrigger = true;
         pickupCollider.size = (bounds.size * 1.2f);
         pickupCollider.center = localCenter;
+    }
+
+    void InitAnimation() 
+    {
+        AnimCon = gameObject.GetComponent<Animator>();
+        if (AnimCon) 
+        {
+            animationEnabled = true;
+        }
     }
     // Update is called once per frame
     public virtual void Update()

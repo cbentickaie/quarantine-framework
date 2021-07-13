@@ -4,7 +4,7 @@ using System.Collections;
 //Damage types compiled from 
 //https://forums.giantitp.com/showthread.php?379165-MM-Resistances-Immunities-Vulnerabilities-and-Damage
 //Stanard DnD Damage types, not inclusive.
-public enum DamageTypes { _Default, Piercing, Bludgeoning, Slashing, Radiant, Explosive, Fire, Cold, Acid, Psychic, Laser, Electricity}
+public enum DamageTypes { _Default, Piercing, Bludgeoning, Slashing, Radiant, Explosive, Fire, Cold, Acid, Psychic, Laser, Electricity, Drilling}
 
 public class DamageHandler : MonoBehaviour {
 

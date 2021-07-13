@@ -29,6 +29,7 @@ public class C_HoldableMagnifyingGlass : C_HoldableItem
         if (Physics.Raycast(transform.position, transform.forward * 3.14f, out InvHit, 3.14f))
         {
             Debug.DrawRay(transform.position, (transform.position + transform.forward * 3.14f), Color.magenta, 1.314f);
+            //Gizmos.DrawCube(InvHit.point, Vector3.one);
         }
         yield return new WaitForSeconds(0.314f);
         StartCoroutine(traceForInvestigation());
