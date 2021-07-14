@@ -299,8 +299,9 @@ public class DamageHandler : MonoBehaviour {
             case DamageTypes.Bludgeoning:
                 
                 print("Did Bludgeon Damage");
-                if (!gameObject.GetComponent<C_StunnedStatus>())
+                if (!gameObject.CompareTag("Player") && !gameObject.GetComponent<C_StunnedStatus>())
                 {
+
                     gameObject.AddComponent<C_StunnedStatus>();
                 }
                 break;
@@ -309,7 +310,7 @@ public class DamageHandler : MonoBehaviour {
                 print("Did Laser Damage");
                 break;
             case DamageTypes.Electricity:
-                if (!gameObject.GetComponent<C_ShockedStatus>()) 
+                if (!gameObject.CompareTag("Player") && !gameObject.GetComponent<C_ShockedStatus>()) 
                 {
                     gameObject.AddComponent<C_ShockedStatus>();
                 }                
