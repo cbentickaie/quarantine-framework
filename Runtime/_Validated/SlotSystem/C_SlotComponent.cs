@@ -119,7 +119,7 @@ public class C_SlotComponent : MonoBehaviour
         if (!MultiDoor) 
         {
             //Grabs the Parent door - handling very specific case for James/
-            MultiDoor = DoorCommodityChecker.gameObject.GetComponent<MultiDoor>();
+           // MultiDoor = DoorCommodityChecker.gameObject.GetComponent<MultiDoor>();
         }        
     }
 
