@@ -101,7 +101,7 @@ public class C_SlotComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        setupPreviewMesh();
+       // setupPreviewMesh();
         //collectAndMergeRenderers();
         if (useMeshPreview && (KeyMeshIndicator = SlotKeyObject.GetComponentInChildren<MeshFilter>().mesh))
         {

@@ -14,6 +14,7 @@ public class PlayerHudManager : MonoBehaviour {
     public Image crosshair;
     public float messageTime = 2.0f;
     public bool showCrosshair = true;
+    public bool showStatsPanelOnStartup = false;
     [SerializeField] bool showCrosshairOnHover = true;
     public GameObject statspanel;
     public GameObject pauseMenu;
@@ -60,6 +61,10 @@ public class PlayerHudManager : MonoBehaviour {
         if (playerDH = (GameObject.FindGameObjectWithTag("Player").GetComponent<DamageHandler>()))
         {
             UpdateStatsPanel();
+        }
+        if (showStatsPanelOnStartup) 
+        {
+            TogglePlayerStatsPanel();
         }
         //crossHairColor = crosshair.color;
     }

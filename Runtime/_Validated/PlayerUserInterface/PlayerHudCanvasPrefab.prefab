@@ -147,6 +147,8 @@ MonoBehaviour:
   crosshair: {fileID: 114815625624982212}
   messageTime: 2
   showCrosshair: 1
+  showStatsPanelOnStartup: 1
+  showCrosshairOnHover: 1
   statspanel: {fileID: 6161520283637326607}
   pauseMenu: {fileID: 6136171420752139269}
   StatSliders:
