@@ -10,18 +10,28 @@ public class C_LoadNewLevel : MonoBehaviour
 
     //Carve out a space for us to put the target object in.
     public string Levelname = null;
+    public bool DestroyPlayerController = false;
     //
     private void OnTriggerEnter(Collider other)
     {
         //If the overlapping actor is the Player
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(Levelname);
+            if (DestroyPlayerController) 
+            {
+                Destroy(PlayerController.instance.gameObject);
+            }
+            SceneManager.LoadScene(Levelname, LoadSceneMode.Single);
         }
     }
     public void LoadNewLevelDirect(string LevelName)
     {
-        SceneManager.LoadScene(LevelName);
+        if (DestroyPlayerController)
+        {
+            Destroy(PlayerController.instance.gameObject);
+        }
+
+        SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
     }
     void OnDrawGizmos()
     {
