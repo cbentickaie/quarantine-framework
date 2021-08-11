@@ -112,6 +112,8 @@ MonoBehaviour:
   MaxHealth: 100
   HealthRatio: 1
   AppliesDamage: 1
+  hitDamageThreshold: 0
+  DamageTypeToApply: 0
   DestroySelf: 0
   DamageAmount: 150
   DamageFX: {fileID: 0}
@@ -123,6 +125,5 @@ MonoBehaviour:
   myPcon: {fileID: 0}
   AppliesRepeatedDamage: 0
   frequency: 0.5
-  isContacting: 0
   contactObject: {fileID: 0}
   isApplyingDamage: 0

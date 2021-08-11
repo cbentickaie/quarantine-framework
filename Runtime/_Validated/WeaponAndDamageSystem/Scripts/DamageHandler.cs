@@ -15,7 +15,8 @@ public class DamageHandler : MonoBehaviour {
     public float MaxHealth = 100;
     public float HealthRatio = 1.0f;
     public bool AppliesDamage = false;
-    public float hitDamageThreshold = 8.0f;
+
+    public float hitDamageThreshold = 1.0f;
     public DamageTypes DamageTypeToApply = DamageTypes._Default;
     public bool DestroySelf = false;
     public float DamageAmount = 10;
